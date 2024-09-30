@@ -1,10 +1,17 @@
 import React from 'react'
+import Navbar from './components/Navabar'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Products from './pages/Products';
 
 const App = () => {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path='/product' element={<Products />}/>
+      </Routes>
+     
+    </Router>
   )
 }
 
