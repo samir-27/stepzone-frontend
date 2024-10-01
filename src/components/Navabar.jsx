@@ -32,17 +32,17 @@ const Navbar = () => {
     );
 
     const navigationLinks = (
-        <ul className={`md:h-auto items-center justify-center md:flex md:bg-white bg-rose-500   ${navbar ? 'p-12 md:p-0 block' : 'hidden'}`}>
-            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-white py-2 md:px-6 text-center">
+        <ul className={`md:h-auto items-center justify-center md:flex md:bg-white bg-gray-200   ${navbar ? 'p-12 md:p-0 block' : 'hidden'}`}>
+            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 md:px-6 text-center">
                 <Link to="/">Home</Link>
             </li>
-            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-white py-2 md:px-6 text-center">
+            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 md:px-6 text-center">
                 <Link to="/products">Products</Link>
             </li>
-            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-white py-2 md:px-6 text-center">
+            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 md:px-6 text-center">
                 <Link to="/about">About Us</Link>
             </li>
-            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-white py-2 md:px-6 text-center">
+            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 md:px-6 text-center">
                 <Link to="/contact">Contact Us</Link>
             </li>
             <li>
