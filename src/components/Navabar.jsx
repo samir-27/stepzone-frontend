@@ -73,18 +73,20 @@ const Navbar = () => {
     );
 
     return (
-        <nav className="w-full bg-white z-50 fixed top-0 left-0 right-0 shadow-md h-20">
-            <div className="justify-between mx-auto lg:max-w-screen-2xl md:items-center md:flex md:px-4 h-full">
-                <div>
-                    <div className="flex items-center justify-between py-3 md:py-5 md:block">
-                        {logo}
-                        <div className="md:hidden bg">{hamburgerButton}</div>
-                    </div>
-                </div>
-                <div>{navigationLinks}</div>
+        <div className=' shadow-md h-20 flex justify-center'>
 
-            </div>
-        </nav>
+            <nav className=" bg-white z-50 fixed top-0 container h-20">
+                <div className="justify-between md:items-center md:flex h-full container">
+                        <div className="flex items-center justify-between py-3 md:py-5 md:block">
+                            {logo}
+                            <div className="md:hidden bg">{hamburgerButton}</div>
+                        </div>
+        
+                    <div>{navigationLinks}</div>
+
+                </div>
+            </nav>
+        </div>
     );
 };
 
