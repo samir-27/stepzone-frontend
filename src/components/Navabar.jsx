@@ -73,17 +73,19 @@ const Navbar = () => {
     );
 
     return (
-        <div className=' shadow-md h-20 flex justify-center'>
+        <div className=' shadow-md h-20 z-50 fixed top-0 w-screen bg-white '>
+            <nav className="w-full h-20 ">
+                <div className="container h-full mx-auto">
 
-            <nav className=" bg-white z-50 fixed top-0 container h-20">
-                <div className="justify-between md:items-center md:flex h-full container">
+                    <div className="justify-between md:items-center md:flex h-full">
                         <div className="flex items-center justify-between py-3 md:py-5 md:block">
                             {logo}
                             <div className="md:hidden bg">{hamburgerButton}</div>
                         </div>
-        
-                    <div>{navigationLinks}</div>
 
+                        <div>{navigationLinks}</div>
+
+                    </div>
                 </div>
             </nav>
         </div>
