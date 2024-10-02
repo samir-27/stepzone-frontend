@@ -1,7 +1,7 @@
 const allProducts = [
     {
         id: 1,
-        name: "Nike Court Vision Low Next Nature",
+        title: "Nike Court Vision Low Next Nature",
         desc:"An iconic look that lasts. This AJ1 pairs the classic design of the original with premium materials that will keep you going all day.",
         path: "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/4284894e-e57e-4d95-ae7b-1e8fcc9eeb9a/NIKE+COURT+VISION+LO+NN.png",
         price: " 4995.00",

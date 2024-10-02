@@ -33,16 +33,16 @@ const Navbar = () => {
 
     const navigationLinks = (
         <ul className={`md:h-auto items-center justify-center md:flex md:bg-white bg-gray-200   ${navbar ? 'p-12 md:p-0 block' : 'hidden'}`}>
-            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 md:px-6 text-center">
+            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
                 <Link to="/">Home</Link>
             </li>
-            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 md:px-6 text-center">
+            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
                 <Link to="/products">Products</Link>
             </li>
-            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 md:px-6 text-center">
+            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
                 <Link to="/about">About Us</Link>
             </li>
-            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 md:px-6 text-center">
+            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
                 <Link to="/contact">Contact Us</Link>
             </li>
             <li>
@@ -75,7 +75,7 @@ const Navbar = () => {
     return (
         <div className=' shadow-md h-20 z-50 fixed top-0 w-screen bg-white '>
             <nav className="w-full h-20 ">
-                <div className="container h-full mx-auto">
+                <div className="container h-full mx-auto xl:px-40 lg:px-28 md:px-10 px-5">
 
                     <div className="justify-between md:items-center md:flex h-full">
                         <div className="flex items-center justify-between py-3 md:py-5 md:block">

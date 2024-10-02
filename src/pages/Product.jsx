@@ -22,9 +22,9 @@ const Product = () => {
     }, [product]);
 
     return (
-        <div className="mt-24 container mx-auto">
+        <div className="mt-24 container mx-auto xl:px-40 lg:px-28 md:px-10 px-5">
             <div className="xl:flex lg:flex md:flex gap-6">
-                <div className="flex gap-6 grid-cols-6 xl:w-3/5 lg:w-3/5 md:w-3/5  w-full justify-center">
+                <div className="flex gap-6 grid-cols-6 xl:w-3/5 lg:w-3/5 md:w-3/5  w-full justify-center" >
 
                     <div className="flex flex-col justify-between">
                         {product?.images.map((image, index) => (

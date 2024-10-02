@@ -5,11 +5,11 @@ import allProducts from '../utils/allproduct'
 
 const Products = () => {
     return (
-        <div className='py-24 container mx-auto px-2'>
+        <div className='py-24 container mx-auto xl:px-40 lg:px-28 md:px-10 px-5'>
             <div class="lg:flex md:flex gap-10 sm:inline">
                 <div class="lg:w-2/7 md:w-1/4 w-full mb-5">
                     <div className='lg:fixed'>
-                        <div className='xl:w-80 lg:fixed md:fixed lg:w-64 md:w-44 sm'>
+                        <div className='lg:fixed xl:w-64 md:fixed  lg:w-44 md:w-44 sm'>
                             <AccordionComponent />
                         </div>
                     </div>
