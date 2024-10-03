@@ -1,6 +1,5 @@
 import React from "react";
 import Navbar from "./components/Navabar";
-
 import {
   BrowserRouter as Router,
   Route,
@@ -13,6 +12,10 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Profile from "./pages/Profile";
+import ProfileDetails from "./components/ProfileDetails";
+import OrderHistory from "./components/OrderHistory";
+import Wishlist from "./components/Wishlist";
 
 const App = () => {
   const location = useLocation();
@@ -29,6 +32,11 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile/*" element={<Profile />}>
+          <Route index element={<ProfileDetails />} />
+          <Route path="order-history" element={<OrderHistory />} />
+          <Route path="wishlist" element={<Wishlist />} />
+        </Route>
       </Routes>
     </>
   );
@@ -41,3 +49,4 @@ const AppWrapper = () => (
 );
 
 export default AppWrapper;
+
