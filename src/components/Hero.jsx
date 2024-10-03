@@ -2,8 +2,8 @@ import React from 'react'
 import homeimg from '../assets/home.png'
 const Hero = () => {
   return (
-    <div className='mt-28'>
-      <div className="container mx-auto xl:px-40 lg:px-28 md:px-10 px-5 xl:h-128 lg:h-128">
+    <div className=''>
+      <div className=" xl:h-screen lg:h-128 lg:mt-0 md:mt-24 mt-24">
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 min-h-full">
           <div className="md:h-full">
             <img className="object-contain h-full w-full mx-auto p-4 saturate-800 bg-blur-lg wave" src={homeimg} alt="" />
