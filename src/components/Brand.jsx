@@ -33,12 +33,13 @@ const Brand = () => {
 
   return (
     <div>
-      
+      <h1 className='text-4xl font-semibold text-sky-900 pb-0 py-12'>
+        Brand
+      </h1>
       <Carousel responsive={responsive} infinite={true} autoPlay={true} pauseOnHover={true} autoPlaySpeed={1000} swipeable={false} draggable={false}>
         {IMAGES.map((image, index) => {
           return (
-
-            <div key={index} className='py-12 '>
+            <div key={index} className=''>
               <img className='h-56 object-contain px-5 duration-500' src={image} alt="" />
             </div>
           )
