@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import item1 from '../assets/brands/nike.png';

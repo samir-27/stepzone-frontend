@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GiCancel } from 'react-icons/gi';
 import { CgProfile } from "react-icons/cg";
-import { FaRegHeart } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 const Navbar = () => {
     const [navbar, setNavbar] = useState(false);
