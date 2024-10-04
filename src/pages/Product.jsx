@@ -1,26 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import allProducts from '../utils/allproduct';
+import { useDispatch } from 'react-redux';
+import { addItemToCart } from '../redux/CartSlice';
 
 const Product = () => {
 
     const params = useParams();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [product, setProduct] = useState(null);
-
+    
     useEffect(() => {
         const foundProduct = allProducts.find((o) => o.id === Number(params.id));
         if (foundProduct) setProduct(foundProduct);
         window.scrollTo(0, 0);
     }, [params]);
-
+    
+    
     const [currentImage, setCurrentImage] = useState(null);
     useEffect(() => {
         if (product?.path) {
             setCurrentImage(product.path);
         }
     }, [product]);
-
+    
+    const handleCartClick = () => {
+        dispatch(addItemToCart({
+            id: product.id,
+            name: product.title,
+            path: product.path,
+            price: product.price,
+        }));
+        console.log('Item added:', product);
+        navigate("/cart");
+    };
+    
     return (
         <div className="mt-24 container mx-auto xl:px-40 lg:px-28 md:px-10 px-5">
             <div className="xl:flex lg:flex md:flex gap-6">
@@ -52,7 +68,7 @@ const Product = () => {
                     <h1 className='text-4xl font-bold py-2'>{product?.title}</h1>
                     <p>An iconic look that lasts. This AJ1 pairs the classic design of the original with premium materials that will keep you going all day.</p>
                     <br></br>
-                    <h1 className='text-3xl font-semibold text-rose-500'>Price: 500$</h1>
+                    <h1 className='text-3xl font-semibold text-rose-500'>Price: {product?.price}$</h1>
                     <p className='text-gray-500 text-xl'>(Inclusive of all taxes)</p>
                     <h2 className='py-5 text-gray-800 text-xl'>Slect Size</h2>
                     <div className='grid grid-cols-3 gap-2'>
@@ -64,7 +80,7 @@ const Product = () => {
                         <button className='p-2 border-2 border-gray-500 rounded-md hover:bg-gray-500 hover:text-white'>2XL</button>
                     </div>
                     <div className='grid grid-cols-2 gap-3'>
-                        <button className='p-3 bg-sky-900 rounded-md text-white text-xl font-semibold mt-5 w-full hover:bg-rose-700'>Add To Cart</button>
+                        <button className='p-3 bg-sky-900 rounded-md text-white text-xl font-semibold mt-5 w-full hover:bg-rose-700' onClick={handleCartClick} >Add To Cart</button>
                         <button className='p-3 bg-gray-200 rounded-md text-gray-800 text-xl font-semibold mt-5 w-full hover:bg-rose-700 hover:text-white'>Add To Wishlist</button>
                     </div>
                 </div>
