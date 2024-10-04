@@ -18,6 +18,10 @@ const Navbar = () => {
         </Link>
     );
 
+    const handleClik = () =>{
+        setNavbar(!navbar);
+    }
+
     const hamburgerButton = (
         <button
             className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
@@ -34,27 +38,24 @@ const Navbar = () => {
     const navigationLinks = (
         <ul className={`md:h-auto items-center justify-center md:flex md:bg-white bg-gray-200   ${navbar ? 'p-12 md:p-0 block' : 'hidden'}`}>
             <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
-                <Link to="/">Home</Link>
+                <Link to="/" onClick={handleClik}>Home</Link>
             </li>
             <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
-                <Link to="/products">Products</Link>
+                <Link to="/products" onClick={handleClik}>Products</Link>
             </li>
             <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
-                <Link to="/about">About Us</Link>
+                <Link to="/about" onClick={handleClik}>About Us</Link>
             </li>
             <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
-                <Link to="/contact">Contact Us</Link>
+                <Link to="/contact" onClick={handleClik}>Contact Us</Link>
             </li>
             <li>
                 <div className=' flex py-2 justify-center'>
 
-                    <Link to="/wishlist" className='px-1 my-auto'>
-                        <FaRegHeart className='' size={30} />
+                    <Link to="/cart" className='px-1' onClick={handleClik}>
+                        <TiShoppingCart className='mx-auto' size={40}  />
                     </Link>
-                    <Link to="/cart" className='px-1'>
-                        <TiShoppingCart className='mx-auto' size={40} />
-                    </Link>
-                    <Link to="/profile" className='px-1'>
+                    <Link to="/profile" className='px-1' onClick={handleClik}>
                         <CgProfile className='mx-auto' size={40} />
                     </Link>
                 </div>
@@ -73,12 +74,11 @@ const Navbar = () => {
     );
 
     return (
-        <div className=' shadow-md h-20 z-50 fixed top-0 w-screen bg-white '>
+        <div className='shadow-md h-20 z-50 fixed top-0 w-screen bg-white '>
             <nav className="w-full h-20 ">
-                <div className="container h-full mx-auto xl:px-40 lg:px-28 md:px-10 px-5">
-
+                <div className="sm:container h-full mx-auto xl:px-40  md:px-0">
                     <div className="justify-between md:items-center md:flex h-full">
-                        <div className="flex items-center justify-between py-3 md:py-5 md:block">
+                        <div className="flex items-center justify-between py-3 md:py-5 md:block px-5">
                             {logo}
                             <div className="md:hidden bg">{hamburgerButton}</div>
                         </div>
