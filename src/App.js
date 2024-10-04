@@ -17,6 +17,7 @@ import ProfileDetails from "./components/ProfileDetails";
 import OrderHistory from "./components/OrderHistory";
 import Wishlist from "./components/Wishlist";
 import Cart from "./components/Cart";
+import ChangePassword from "./components/ChangePassword";
 
 const App = () => {
   const location = useLocation();
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/profile/*" element={<Profile />}>
           <Route index element={<ProfileDetails />} />
+          <Route path="changepassword" element={<ChangePassword />} />
           <Route path="order-history" element={<OrderHistory />} />
           <Route path="wishlist" element={<Wishlist />} />
         </Route>

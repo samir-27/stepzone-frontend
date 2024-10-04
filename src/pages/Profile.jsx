@@ -13,6 +13,11 @@ const Profile = () => {
               </Link>
             </li>
             <li>
+              <Link to="changepassword" className='text-gray-700 font-bold bg-gray-100 p-4 rounded-lg shadow-md block w-full'>
+                Change Password
+              </Link>
+            </li>
+            <li>
               <Link to="order-history" className='text-gray-700 font-bold bg-gray-100 p-4 rounded-lg shadow-md block w-full'>
                 Order History
               </Link>
@@ -23,6 +28,7 @@ const Profile = () => {
               </Link>
             </li>
           </ul>
+          
         </nav>
 
         <div className='w-3/4 p-8 bg-white shadow-lg rounded-lg h-132 ' >
