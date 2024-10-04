@@ -97,7 +97,7 @@ const AccordionComponent = () => {
         <div className="flex flex-col space-y-2">
           {filter.options.map((option) => (
             <label key={option.value} className="flex items-center space-x-2">
-              <input type="checkbox" value={option.value} className="form-checkbox" />
+              <input type="radio" name={filter.id} value={option.value} className="form-checkbox" />
               {filter.id === 'color' && (
                 <span
                   className="w-4 h-4 inline-block rounded-full border-2 border-gray-900"

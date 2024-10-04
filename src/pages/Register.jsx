@@ -37,13 +37,6 @@ const Register = () => {
                                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
                             />
                         </div>
-                        <div className="mb-4">
-                            <label htmlFor="password" className="block text-gray-700">Register As</label>
-                            <select className='w-full px-3 py-2 border border-gray-300 rounded-md'>
-                                <option value="User">User</option>
-                                <option value="Admin">Admin</option>
-                            </select>
-                        </div>
                         <button
                             type="submit"
                             className="w-full bg-sky-900 text-white py-2 px-4 rounded-md hover:bg-rose-600"

@@ -33,12 +33,9 @@ const MyProfile = () => {
   };
 
   const handleImageChange = (event) => {
-    const selectedFile = event.target.files && event.target.files[0];
-    if (selectedFile) {
-      setSelectedImage(selectedFile);
-    }
-  };
-
+     setSelectedImage(event.target.files[0])
+  }
+  
   return (
     <div className="mx-auto mt-10 bg-white">
       <div className="flex items-center justify-center mb-4">
@@ -107,6 +104,8 @@ const MyProfile = () => {
             className={`w-full p-2 border rounded ${isEditing ? 'bg-white' : 'bg-gray-100'} focus:outline-none focus:ring-2 focus:ring-blue-500`}
           />
         </div>
+
+        
 
         <div className="flex justify-between mt-6">
           {isEditing ? (
