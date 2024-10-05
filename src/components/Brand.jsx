@@ -13,8 +13,7 @@ const Brand = () => {
 
   return (
     <div>
-      <div className="py-12">
-        <h1 className='text-4xl font-semibold text-sky-900 lg:py-0 lg:pb-8 py-12'>
+        <h1 className='text-4xl font-semibold text-sky-900 py-12'>
           Brands
         </h1>
         <div className="container mx-auto text-center">
@@ -24,7 +23,6 @@ const Brand = () => {
             ))}
           </div>
         </div>
-      </div>
     </div>
   );
 };
