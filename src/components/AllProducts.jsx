@@ -77,69 +77,69 @@ const AllProducts = () => {
 
             {isModalOpen && selectedProduct && (
                 <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-                    <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl mx-auto overflow-y-auto max-h-screen p-8">
-                        <h3 className="text-xl font-bold mb-4">Edit Product</h3>
+                    <div className="bg-white rounded-lg shadow-lg w-full max-w-2xl mx-auto overflow-y-auto max-h-screen p-4">
+                        <h3 className="text-xl font-bold mb-2">Edit Product</h3>
                         <form onSubmit={handleFormSubmit}>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                <div className="mb-0">
-                                    <label className="block text-gray-700 font-bold mb-2">Title</label>
+                            <div className="grid grid-cols-1 gap-3">
+                                <div className="mb-2">
+                                    <label className="block text-gray-700 font-bold text-sm">Title</label>
                                     <input
                                         type="text"
                                         defaultValue={selectedProduct.title}
-                                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-2 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                                         required
                                     />
                                 </div>
-                                <div className="mb-0">
-                                    <label className="block text-gray-700 font-bold mb-2">Price</label>
+                                <div className="mb-2">
+                                    <label className="block text-gray-700 font-bold text-sm">Price</label>
                                     <input
                                         type="number"
                                         defaultValue={selectedProduct.price}
-                                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-2 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                                         required
                                     />
                                 </div>
-                                <div className="mb-0">
-                                    <label className="block text-gray-700 font-bold mb-2">Description</label>
+                                <div className="mb-2">
+                                    <label className="block text-gray-700 font-bold text-sm">Description</label>
                                     <textarea
-                                        rows={3}
+                                        rows={2}
                                         value={selectedProduct.desc}
-                                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-2 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                                         placeholder="Enter product description"
                                     />
                                 </div>
-                                <div className="mb-0">
-                                    <label className="block text-gray-700 font-bold mb-2">Brand Name</label>
+                                <div className="mb-2">
+                                    <label className="block text-gray-700 font-bold text-sm">Brand Name</label>
                                     <input
                                         type="text"
-                                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-2 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                                         placeholder="Enter brand name"
                                         value={selectedProduct.brand}
                                     />
                                 </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700 font-bold mb-2">Category</label>
+                                <div className="mb-2">
+                                    <label className="block text-gray-700 font-bold text-sm">Category</label>
                                     <input
                                         type="text"
-                                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-2 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                                         placeholder="Enter category"
                                         value={selectedProduct.category}
                                     />
                                 </div>
                             </div>
-                            
-                            <div className="mb-4">
-                                <label className="block text-gray-700 font-bold mb-2">Select Colors</label>
-                                <div className="grid grid-cols-3 md:grid-cols-4 gap-2">
+
+                            <div className="mb-2">
+                                <label className="block text-gray-700 font-bold text-sm">Select Colors</label>
+                                <div className="grid grid-cols-3 gap-2">
                                     {['White', 'Gray', 'Blue', 'Brown', 'Red', 'Pink', 'Yellow', 'Green', 'Purple'].map((color) => (
-                                        <label key={color} className="flex items-center">
+                                        <label key={color} className="flex items-center text-sm">
                                             <input
                                                 type="checkbox"
                                                 value={color}
                                                 onChange={handleColorChange}
-                                                className="mr-2"
+                                                className="mr-1"
                                             />
-                                            <span className={`flex items-center gap-2`}>
+                                            <span className="flex items-center gap-1">
                                                 <span className={`w-4 h-4 bg-${color.toLowerCase()}-500`}></span> {color}
                                             </span>
                                         </label>
@@ -147,28 +147,28 @@ const AllProducts = () => {
                                 </div>
                             </div>
 
-                            <div className="mb-4">
-                                <label className="block text-gray-700 font-bold mb-2">Upload Main Image</label>
+                            <div className="mb-2">
+                                <label className="block text-gray-700 font-bold text-sm">Upload Main Image</label>
                                 <input
                                     type="file"
                                     accept="image/*"
                                     onChange={handleImageUpload}
-                                    className="w-full px-3 py-2 border rounded-lg"
+                                    className="w-full px-2 py-1 border rounded-lg text-sm"
                                 />
-                                {image && <img src={image} alt="Main" className="w-32 h-32 mt-4 object-cover rounded-md" />}
+                                {image && <img src={image} alt="Main" className="w-20 h-20 mt-2 object-cover rounded-md" />}
                             </div>
 
-                            <div className="mb-4">
-                                <label className="block text-gray-700 font-bold mb-2">Upload Sub Images</label>
+                            <div className="mb-2">
+                                <label className="block text-gray-700 font-bold text-sm">Upload Sub Images</label>
                                 {[0, 1, 2].map((index) => (
-                                    <div key={index} className="mb-4">
+                                    <div key={index} className="mb-2">
                                         <input
                                             type="file"
                                             accept="image/*"
                                             onChange={handleSubImageUpload(index)}
-                                            className="w-full px-3 py-2 border rounded-lg"
+                                            className="w-full px-2 py-1 border rounded-lg text-sm"
                                         />
-                                        {subImages[index] && <img src={subImages[index]} alt={`Sub ${index + 1}`} className="w-32 h-32 mt-4 object-cover rounded-md" />}
+                                        {subImages[index] && <img src={subImages[index]} alt={`Sub ${index + 1}`} className="w-20 h-20 mt-2 object-cover rounded-md" />}
                                     </div>
                                 ))}
                             </div>
@@ -176,14 +176,14 @@ const AllProducts = () => {
                             <div className="flex justify-end">
                                 <button
                                     type="button"
-                                    className="bg-gray-500 text-white p-2 rounded-lg mr-2"
+                                    className="bg-gray-500 text-white px-3 py-1 rounded-lg text-sm mr-2"
                                     onClick={closeEditModal}
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    className="bg-blue-500 text-white p-2 rounded-lg"
+                                    className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm"
                                 >
                                     Save
                                 </button>
