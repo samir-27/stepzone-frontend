@@ -13,7 +13,7 @@ const AdminPanel = () => {
               </Link>
             </li>
             <li>
-              <Link to="changepassword" className='text-gray-700 font-bold bg-gray-100 p-4 rounded-lg shadow-md block w-full'>
+              <Link to="allproducts" className='text-gray-700 font-bold bg-gray-100 p-4 rounded-lg shadow-md block w-full'>
                 All Products
               </Link>
             </li>

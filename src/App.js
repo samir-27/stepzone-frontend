@@ -21,6 +21,7 @@ import ChangePassword from "./components/ChangePassword";
 import Footer from "./components/Footer";
 import AdminPanel from "./pages/AdminPanel";
 import AddProducts from "./components/AddProducts";
+import AllProducts from "./components/AllProducts";
 
 const App = () => {
   const location = useLocation();
@@ -47,6 +48,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/admin/*" element={<AdminPanel />} >
             <Route index element={<AddProducts />} />
+            <Route path="allproducts" element={<AllProducts />} />
         
           </Route>
         </Routes>
