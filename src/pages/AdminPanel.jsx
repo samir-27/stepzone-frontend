@@ -18,13 +18,8 @@ const AdminPanel = () => {
               </Link>
             </li>
             <li>
-              <Link to="order-history" className='text-gray-700 font-bold bg-gray-100 p-4 rounded-lg shadow-md block w-full'>
+              <Link to="allusers" className='text-gray-700 font-bold bg-gray-100 p-4 rounded-lg shadow-md block w-full'>
                 All Users
-              </Link>
-            </li>
-            <li>
-              <Link to="wishlist" className='text-gray-700 font-bold bg-gray-100 p-4 rounded-lg shadow-md block w-full'>
-                Wishlist
               </Link>
             </li>
           </ul>
