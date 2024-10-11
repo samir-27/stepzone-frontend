@@ -18,21 +18,34 @@ const Login = () => {
             } else {
                 url = 'http://localhost:5000/api/v1/login';
             }
-    
+
             const response = await axios.post(url, { email, password });
-            // Store user role in localStorage
-            localStorage.setItem('userRole', response.data.role);
-    
-            if (role === 'Admin') {
-                navigate("/admin");
+
+            let userRole;
+            if (role === 'Admin' && response.data.admin) {
+                userRole = response.data.admin.role.toLowerCase();
+            } else if (role === 'User') {
+                userRole = response.data.Role.toLowerCase();
+            }
+            
+            if (userRole) {
+                localStorage.setItem('userRole', userRole);
+                console.log("Role saved to localStorage:", localStorage.getItem('userRole'));
+
+                // Navigate based on role
+                if (userRole === 'admin') {
+                    navigate("/admin");
+                } else {
+                    console.log("Navigating to home");
+                    navigate("/");
+                }
             } else {
-                navigate("/");
+                console.error("Role is undefined in the response");
             }
         } catch (error) {
             console.error('Login failed:', error.response ? error.response.data.message : error.message);
         }
     };
-    
 
     return (
         <div>
