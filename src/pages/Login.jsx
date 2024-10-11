@@ -20,7 +20,8 @@ const Login = () => {
             }
 
             const response = await axios.post(url, { email, password });
-
+            console.log("TOKEN:",response.data.authToken)
+            localStorage.setItem("authToken",response.data.authToken)
             let userRole;
             if (role === 'Admin' && response.data.admin) {
                 userRole = response.data.admin.role.toLowerCase();

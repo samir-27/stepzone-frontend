@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GiCancel } from 'react-icons/gi';
 import { CgProfile } from "react-icons/cg";
 import { TiShoppingCart } from "react-icons/ti";
+
 const Navbar = () => {
     const [navbar, setNavbar] = useState(false);
-
+    const navigate = useNavigate();
     const toggleNavbar = () => {
         setNavbar(!navbar);
     };
@@ -17,8 +18,16 @@ const Navbar = () => {
         </Link>
     );
 
-    const handleClik = () =>{
+    const handleClik = () => {
         setNavbar(!navbar);
+    }
+
+    const handleLogin = () => {
+        navigate("/login")
+    }
+
+    const handleRegister = () => {
+        navigate("/register")
     }
 
     const hamburgerButton = (
@@ -48,18 +57,24 @@ const Navbar = () => {
             <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
                 <Link to="/contact" onClick={handleClik}>Contact Us</Link>
             </li>
-            <li>
-                <div className=' flex py-2 justify-center'>
+            {
+                (localStorage.getItem("authToken")) ?
+                    <li>
+                        <div className=' flex py-2 justify-center'>
 
-                    <Link to="/cart" className='px-1' onClick={handleClik}>
-                        <TiShoppingCart className='mx-auto' size={40}  />
-                    </Link>
-                    <Link to="/profile" className='px-1' onClick={handleClik}>
-                        <CgProfile className='mx-auto' size={40} />
-                    </Link>
-                </div>
-            </li>
-
+                            <Link to="/cart" className='px-1' onClick={handleClik}>
+                                <TiShoppingCart className='mx-auto' size={40} />
+                            </Link>
+                            <Link to="/profile" className='px-1' onClick={handleClik}>
+                                <CgProfile className='mx-auto' size={40} />
+                            </Link>
+                        </div>
+                    </li> :
+                    <li>
+                        <button className='p-1 px-3 border-2 border-rose-600 bg-rose-600 text-white rounded-md font-semibold hover:bg-rose-500' onClick={handleLogin}>login</button>
+                        <button className='p-1 px-3 border-2 border-rose-600 text-rose-600 rounded-md font-semibold hover:bg-rose-600 hover:text-white mx-4' onClick={handleRegister}>Register</button>
+                    </li>
+            }
 
 
 
