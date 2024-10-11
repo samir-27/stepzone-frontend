@@ -12,23 +12,27 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-          let url;
-          
-          if (role === 'Admin') {
-            url = 'http://localhost:5000/api/v1/admin/login';
-            navigate("/admin")
-          } else {
-            url = 'http://localhost:5000/api/v1/login';
-            navigate("/")
-          }
+            let url;
+            if (role === 'Admin') {
+                url = 'http://localhost:5000/api/v1/admin/login';
+            } else {
+                url = 'http://localhost:5000/api/v1/login';
+            }
     
-          const response = await axios.post(url, { email, password });
-          console.log('Login successful:', response.data);
-          
+            const response = await axios.post(url, { email, password });
+            // Store user role in localStorage
+            localStorage.setItem('userRole', response.data.role);
+    
+            if (role === 'Admin') {
+                navigate("/admin");
+            } else {
+                navigate("/");
+            }
         } catch (error) {
-          console.error('Login failed:', error.response ? error.response.data.message : error.message);
+            console.error('Login failed:', error.response ? error.response.data.message : error.message);
         }
-      };
+    };
+    
 
     return (
         <div>
