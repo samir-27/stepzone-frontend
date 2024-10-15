@@ -26,6 +26,12 @@ const Navbar = () => {
         navigate("/login")
     }
 
+    const handleLogout = () => {
+        localStorage.removeItem("authToken");
+        navigate("/login")  
+    };
+    
+
     const handleRegister = () => {
         navigate("/register")
     }
@@ -68,6 +74,7 @@ const Navbar = () => {
                             <Link to="/profile" className='px-1' onClick={handleClik}>
                                 <CgProfile className='mx-auto' size={40} />
                             </Link>
+                            <button className='p-1 px-3 border-2 border-rose-600 bg-rose-600 text-white rounded-md font-semibold hover:bg-rose-500' onClick={handleLogout}>Logout</button>
                         </div>
                     </li> :
                     <li>
