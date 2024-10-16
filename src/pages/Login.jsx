@@ -7,10 +7,11 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('User');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
-
     const handleLogin = async (e) => {
         e.preventDefault();
+        setError(''); // Reset error state
         try {
             let url;
             if (role === 'Admin') {
@@ -18,35 +19,39 @@ const Login = () => {
             } else {
                 url = 'http://localhost:5000/api/v1/login';
             }
-
+    
             const response = await axios.post(url, { email, password });
-            console.log("TOKEN:",response.data.authToken)
-            localStorage.setItem("authToken",response.data.authToken)
-            let userRole;
-            if (role === 'Admin' && response.data.admin) {
-                userRole = response.data.admin.role.toLowerCase();
-            } else if (role === 'User') {
-                userRole = response.data.Role.toLowerCase();
+    
+            // console.log("Login response:", response);
+            // console.log("Response data:", response.data); 
+    
+            // Correctly store the token
+            if (response.data.token) {
+                localStorage.setItem("authToken", response.data.token);
+                // console.log("Token stored:", response.data.token);
+            } else {
+                console.error("No token found in the response");
             }
-            
+    
+            let userRole = role === 'Admin' ? response.data.admin.role.toLowerCase() : response.data.Role.toLowerCase();
+    
             if (userRole) {
                 localStorage.setItem('userRole', userRole);
-                console.log("Role saved to localStorage:", localStorage.getItem('userRole'));
-
-                // Navigate based on role
                 if (userRole === 'admin') {
                     navigate("/admin");
                 } else {
-                    console.log("Navigating to home");
                     navigate("/");
                 }
             } else {
-                console.error("Role is undefined in the response");
+                throw new Error("Role is undefined in the response");
             }
         } catch (error) {
-            console.error('Login failed:', error.response ? error.response.data.message : error.message);
+            const errorMessage = error.response ? error.response.data.message : error.message;
+            setError(errorMessage);
+            console.error('Login failed:', errorMessage);
         }
     };
+    
 
     return (
         <div>
@@ -91,6 +96,7 @@ const Login = () => {
                                 <option value="User">User</option>
                                 <option value="Admin">Admin</option>
                             </select>
+                            {error && <p className="text-red-500">{error}</p>}
                         </div>
                         <button
                             type="submit"
