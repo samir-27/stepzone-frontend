@@ -3,7 +3,7 @@ import React from 'react';
 const GenderGrid = () => {
   return (
     <div className="grid grid-cols-3 gap-2">
-      <div className="relative overflow-hidden group">
+      <div className="relative overflow-hidden group wow animate__animated animate__zoomIn">
         <img 
           src="https://rukminim2.flixcart.com/image/850/1000/l4a7pu80/shoe/z/g/z/6-br-128-40-pos-planet-of-shoes-brown-original-imagf7zunbzgdjg7.jpeg?q=20&crop=false" 
           alt="Men's Shoes" 
@@ -15,7 +15,7 @@ const GenderGrid = () => {
         </div>
       </div>
 
-      <div className="relative overflow-hidden group">
+      <div className="relative overflow-hidden group wow animate__animated animate__zoomIn">
         <img 
           src="https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/843cad44374712d7b9afea098475cfb6.jpg?imageMogr2/auto-orient%7CimageView2/2/w/800/q/70/format/webp" 
           alt="Women's Shoes" 
@@ -27,7 +27,7 @@ const GenderGrid = () => {
         </div>
       </div>
 
-      <div className="relative overflow-hidden group">
+      <div className="relative overflow-hidden group wow animate__animated animate__zoomIn">
         <img 
           src="https://i5.walmartimages.com/asr/d0184aba-e82e-499f-a910-a52661942dea.675d50cdb6cb5cb39bdd5bcf6487aaf8.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF" 
           alt="Kids' Shoes" 

@@ -27,7 +27,7 @@ const HomeCarousel = () => {
 
 
 
-        <div className="my-12">
+        <div className="my-12 wow animate__animated animate__zoomIn">
             <Carousel
                 showArrows={true} 
                 showThumbs={false} 

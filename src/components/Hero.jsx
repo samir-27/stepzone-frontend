@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import homeimg from '../assets/home.png'
+import 'animate.css';
+import WOW from 'wowjs';
+
 const Hero = () => {
+  useEffect(() => {
+    new WOW.WOW().init();
+  }, []);
   return (
     <div className=''>
       <div className=" xl:h-screen lg:h-128 lg:mt-0 md:mt-24 mt-24">
-        <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 min-h-full">
-          <div className="md:h-full">
-            <img className="object-contain h-full w-full mx-auto p-4 saturate-800 bg-blur-lg wave" src={homeimg} alt="" />
+        <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 min-h-full wow animate__animated animate__bounceInDown" data-wow-duration="1.2s">
+          <div className="md:h-full"> 
+            <img className="object-contain h-full w-full mx-auto p-4 saturate-800 bg-blur-lg wave wow animate__animated animate__shakeY animate__infinite	infinite" data-wow-duration="8s" src={homeimg} alt="" />
           </div>
           <div className="flex flex-col justify-center items-center text-center gap-10">
             <h1 className="xl:text-6xl lg:text-5xl md:text-5xl text-4xl text-rose-600  font-semibold">Where Fashion Meets Elegance</h1>
