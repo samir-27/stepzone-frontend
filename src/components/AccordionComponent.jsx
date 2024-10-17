@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Accordion, AccordionItem as Item } from "@szhsin/react-accordion";
+import { useSearchParams } from 'react-router-dom';
 
 const AccordionComponent = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedFilters, setSelectedFilters] = useState({});
 
   const filters = [
     {
@@ -33,18 +36,6 @@ const AccordionComponent = () => {
       ],
     },
     {
-      id: 'sizes',
-      name: 'Sizes',
-      options: [
-        { value: 'xs', label: 'XS' },
-        { value: 's', label: 'S' },
-        { value: 'm', label: 'M' },
-        { value: 'l', label: 'L' },
-        { value: 'xl', label: 'XL' },
-        { value: '2xl', label: '2XL' },
-      ],
-    },
-    {
       id: 'brand',
       name: 'Brand',
       options: [
@@ -72,6 +63,24 @@ const AccordionComponent = () => {
     },
   ];
 
+  const handleFilterChange = (filterId, optionValue) => {
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      [filterId]: optionValue,
+    }));
+  };
+
+  useEffect(() => {
+    Object.keys(selectedFilters).forEach((key) => {
+      if (selectedFilters[key]) {
+        searchParams.set(key, selectedFilters[key]);
+      } else {
+        searchParams.delete(key);
+      }
+    });
+    setSearchParams(searchParams);
+  }, [selectedFilters, searchParams, setSearchParams]);
+
   const AccordionItem = ({ header, children }) => (
     <Item
       header={() => <>{header}</>}
@@ -91,27 +100,34 @@ const AccordionComponent = () => {
 
   return (
     <>
-    <Accordion>
-    {filters.map((filter) => (
-      <AccordionItem key={filter.id} header={filter.name}>
-        <div className="flex flex-col space-y-2">
-          {filter.options.map((option) => (
-            <label key={option.value} className="flex items-center space-x-2">
-              <input type="radio" name={filter.id} value={option.value} className="form-checkbox" />
-              {filter.id === 'color' && (
-                <span
-                  className="w-4 h-4 inline-block rounded-full border-2 border-gray-900"
-                  style={{ backgroundColor: option.colorCode }}
-                  ></span>
-                )}
-              <span>{option.label}</span>
-            </label>
-          ))}
-        </div>
-      </AccordionItem>
-    ))}
-  </Accordion>
-  <button className='bg-sky-900 p-2 rounded-md text-white font-semibold hover:bg-rose-600 w-full'>Apply Filters</button>
+      <Accordion>
+        {filters.map((filter) => (
+          <AccordionItem key={filter.id} header={filter.name}>
+            <div className="flex flex-col space-y-2">
+              {filter.options.map((option) => (
+                <label key={option.value} className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    name={filter.id}
+                    value={option.value}
+                    checked={selectedFilters[filter.id] === option.value}
+                    onChange={() => handleFilterChange(filter.id, option.value)}
+                    className="form-checkbox"
+                  />
+                  {filter.id === 'color' && (
+                    <span
+                      className="w-4 h-4 inline-block rounded-full border-2 border-gray-900"
+                      style={{ backgroundColor: option.colorCode }}
+                    ></span>
+                  )}
+                  <span>{option.label}</span>
+                </label>
+              ))}
+            </div>
+          </AccordionItem>
+        ))}
+      </Accordion>
+      <button className='bg-sky-900 p-2 rounded-md text-white font-semibold hover:bg-rose-600 w-full'>Apply Filters</button>
     </>
   );
 };
