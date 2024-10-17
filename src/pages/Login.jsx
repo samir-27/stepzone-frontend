@@ -26,9 +26,9 @@ const Login = () => {
             // console.log("Response data:", response.data); 
     
             // Correctly store the token
-            if (response.data.token) {
-                localStorage.setItem("authToken", response.data.token);
-                // console.log("Token stored:", response.data.token);
+            if (response.data.authToken) {
+                localStorage.setItem("authToken", response.data.authToken);
+                console.log("Token stored:", response.data.authToken);
             } else {
                 console.error("No token found in the response");
             }
