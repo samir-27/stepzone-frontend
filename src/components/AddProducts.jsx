@@ -5,7 +5,7 @@ const AddProducts = () => {
     const [subImages, setSubImages] = useState([null, null, null]);
     const [subImagePreviews, setSubImagePreviews] = useState([null, null, null]);
     const [selectedColor, setSelectedColor] = useState('');
-    const [selectedSize, setSelectedSize] = useState('');
+    const [selectedSizes, setSelectedSizes] = useState([]); // Changed to an array
     const [imageFile, setImageFile] = useState(null);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -24,20 +24,24 @@ const AddProducts = () => {
     };
 
     const handleSizeChange = (e) => {
-        setSelectedSize(e.target.value);
+        const size = e.target.value;
+        if (selectedSizes.includes(size)) {
+            setSelectedSizes(selectedSizes.filter(s => s !== size)); // Remove size if already selected
+        } else {
+            setSelectedSizes([...selectedSizes, size]); // Add size if not selected
+        }
     };
 
     const handleSubImageUpload = (index) => (e) => {
         const file = e.target.files[0];
         const newSubImages = [...subImages];
-        const newSubImagePreviews = [...subImagePreviews]; // Create a copy for previews
+        const newSubImagePreviews = [...subImagePreviews];
 
-        newSubImages[index] = file
+        newSubImages[index] = file;
         newSubImagePreviews[index] = URL.createObjectURL(file);
-        // console.log(`Sub Image ${index + 1}:`, file);
 
         setSubImages(newSubImages);
-        setSubImagePreviews(newSubImagePreviews); // Update the preview state
+        setSubImagePreviews(newSubImagePreviews);
     };
 
     const handleSubmit = async (e) => {
@@ -59,19 +63,14 @@ const AddProducts = () => {
                 formData.append(`subimage${index + 1}`, subImage);
             }
         });
-        
-        formData.append('color', selectedColor);
-        formData.append('size', selectedSize);
 
-        // Log FormData contents for debugging
-        // for (let [key, value] of formData.entries()) {
-        //     console.log(key, value);
-        // }
+        formData.append('color', selectedColor);
+        selectedSizes.forEach((size) => {
+            formData.append('size', size); // Append each selected size
+        });
 
         try {
             const token = localStorage.getItem("authToken");
-            // console.log("Token being sent:", token);
-    
             const response = await fetch("http://localhost:5000/api/v1/addproduct", {
                 method: "POST",
                 headers: {
@@ -81,25 +80,18 @@ const AddProducts = () => {
             });
 
             const responseText = await response.text();
-            console.log("Response status:", response.status);
-            console.log("Response text:", responseText);
-
             if (response.ok) {
                 const data = JSON.parse(responseText);
-                if (data.success) {
-                    alert("Product added successfully");
-                } else {
-                    alert("Error: " + data.message);
-                }
+                alert(data.success ? "Product added successfully" : "Error: " + data.message);
             } else {
                 alert("Failed to add product: " + responseText);
             }
         } catch (error) {
             console.error("Error adding product:", error);
             alert("An error occurred while adding the product. Please try again.");
-            console.error("Full error details:", error.message || error);
         }
     };
+    
     
     return (
         <div className="mx-auto  bg-white rounded-lg">
@@ -197,16 +189,16 @@ const AddProducts = () => {
                 </div>
                 <div className="mb-6">
                     <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="size">
-                        Select Size:
+                        Select Sizes:
                     </label>
                     <div className="grid grid-cols-2 gap-2">
                         {['XS', 'S', 'M', 'L', 'XL', '2XL'].map((size) => (
                             <label key={size} className="flex items-center">
                                 <input
-                                    type="radio"
+                                    type="checkbox"
                                     name="size"
                                     value={size}
-                                    checked={selectedSize === size}
+                                    checked={selectedSizes.includes(size)} // Check if size is selected
                                     onChange={handleSizeChange}
                                     className="mr-2"
                                 />
