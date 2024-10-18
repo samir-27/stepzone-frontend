@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addItemToCart } from '../redux/CartSlice';
+import StarRating from '../components/StarRating';
 
 const Product = () => {
-
     const params = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [product, setProduct] = useState(null);
     const [products, setProducts] = useState([]);
+    const [reviews, setReviews] = useState([]);
+    const [currentImage, setCurrentImage] = useState(null);
 
     const getProduct = async () => {
         let response = await fetch('http://localhost:5000/api/v1/products', {
@@ -19,9 +21,8 @@ const Product = () => {
             }
         });
         response = await response.json();
-        console.log(response);
-        setProducts(response.data);  // Assuming response.data contains the array of products
         console.log('All products:', response.data);
+        setProducts(response.data);
     };
 
     useEffect(() => {
@@ -30,13 +31,11 @@ const Product = () => {
 
     useEffect(() => {
         if (products.length > 0) {
-            const foundProduct = products.find((o) => o._id === params.id); // Match string IDs directly
+            const foundProduct = products.find((o) => o._id === params.id);
             console.log("Found product:", foundProduct);
             if (foundProduct) setProduct(foundProduct);
         }
     }, [params, products]);
-
-    const [currentImage, setCurrentImage] = useState(null);
 
     useEffect(() => {
         if (product?.image) {
@@ -55,11 +54,28 @@ const Product = () => {
         navigate("/cart");
     };
 
+    const getReviews = async () => {
+        if (product) {
+            let response = await fetch(`http://localhost:5000/api/v1/products/${params.id}/reviews`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json();
+            console.log("Review response:", data);
+            setReviews(data.data || []);
+        }
+    };
+
+    useEffect(() => {
+        getReviews();
+    }, [product]);
+
     return (
         <div className="mt-24 container mx-auto xl:px-40 lg:px-28 md:px-10 px-5">
             <div className="xl:flex lg:flex md:flex gap-6">
-                <div className="flex gap-6 grid-cols-6 xl:w-3/5 lg:w-3/5 md:w-3/5  w-full justify-center" >
-
+                <div className="flex gap-6 grid-cols-6 xl:w-3/5 lg:w-3/5 md:w-3/5 w-full justify-center">
                     <div className="flex flex-col justify-between">
                         <img
                             src={product?.subimage1}
@@ -84,7 +100,7 @@ const Product = () => {
                         />
                     </div>
 
-                    <div className='border-2 bg-gray-200 '>
+                    <div className='border-2 bg-gray-200'>
                         <img
                             src={currentImage}
                             alt="product img big"
@@ -96,23 +112,36 @@ const Product = () => {
                     <h2 className="text-lg font-semibold">Product Details</h2>
                     <h1 className='text-4xl font-bold py-2'>{product?.name}</h1>
                     <p>{product?.description}</p>
-                    <br></br>
+                    <br />
                     <h1 className='text-3xl font-semibold text-rose-500'>Price: {product?.price}$</h1>
                     <p className='text-gray-500 text-xl'>(Inclusive of all taxes)</p>
-                    <h2 className='py-5 text-gray-800 text-xl'>Slect Size</h2>
+                    <h2 className='py-5 text-gray-800 text-xl'>Select Size</h2>
                     <div className='grid grid-cols-3 gap-2'>
-                        <button className='p-2 border-2 border-gray-500 rounded-md hover:bg-gray-500 hover:text-white'>XS</button>
-                        <button className='p-2 border-2 border-gray-500 rounded-md hover:bg-gray-500 hover:text-white'>S</button>
-                        <button className='p-2 border-2 border-gray-500 rounded-md hover:bg-gray-500 hover:text-white'>M</button>
-                        <button className='p-2 border-2 border-gray-500 rounded-md hover:bg-gray-500 hover:text-white'>L</button>
-                        <button className='p-2 border-2 border-gray-500 rounded-md hover:bg-gray-500 hover:text-white'>Xl</button>
-                        <button className='p-2 border-2 border-gray-500 rounded-md hover:bg-gray-500 hover:text-white'>2XL</button>
+                        {["XS", "S", "M", "L", "XL", "2XL"].map(size => (
+                            <button key={size} className='p-2 border-2 border-gray-500 rounded-md hover:bg-gray-500 hover:text-white'>{size}</button>
+                        ))}
                     </div>
                     <div className='grid grid-cols-2 gap-3'>
-                        <button className='p-3 bg-sky-900 rounded-md text-white text-xl font-semibold mt-5 w-full hover:bg-rose-700' onClick={handleCartClick} >Add To Cart</button>
+                        <button className='p-3 bg-sky-900 rounded-md text-white text-xl font-semibold mt-5 w-full hover:bg-rose-700' onClick={handleCartClick}>Add To Cart</button>
                         <button className='p-3 bg-gray-200 rounded-md text-gray-800 text-xl font-semibold mt-5 w-full hover:bg-rose-700 hover:text-white'>Add To Wishlist</button>
                     </div>
                 </div>
+            </div>
+            <div>
+                <h1 className='font-bold text-4xl py-4'>Reviews</h1>
+                {reviews.length === 0 ? (
+                    <p>No reviews available for this product.</p>
+                ) : (
+                    <div>
+                        {reviews.map(review => (
+                            <div key={review._id} className="border-b py-2">
+                                <StarRating rating={review.stars} />
+                                <h3 className="font-semibold">{review.stars} Stars</h3>
+                                <p>{review.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );
