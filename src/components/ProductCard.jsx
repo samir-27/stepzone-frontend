@@ -20,7 +20,7 @@ const ProductCard = ({ data }) => {
       <div className='p-2'>
         <h1 className='text-xl'>{data.name}</h1>
         <p>Price:{data.price}</p>
-        <StarRating rating={Math.round(data.rating)} />
+        <StarRating rating={5} />
       </div>
     </div>
 
