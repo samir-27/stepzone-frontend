@@ -1,48 +1,119 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 
 const MyProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    profile_img: '',
+  });
+  const [form, setForm] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+  });
+  const [message, setMessage] = useState('');
+  const { id } = useParams();
 
-  const initialFormData = {
-    fullName: 'name surname',
-    email: 'mymail123@gmail.com',
-    phone: '9857445125',
+  const getUser = async () => {
+    try {
+      let response = await fetch(`http://localhost:5000/api/v1/getuser/${id}`);
+      const data = await response.json();
+
+      if (data && data.user) {
+        const userData = data.user;
+        setUser(userData);
+        setForm({
+          fullName: userData.name || '',
+          email: userData.email || '',
+          phone: userData.phone || '',
+        });
+      } else {
+        console.error("User data not found");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
   };
 
-  const [form, setForm] = useState(initialFormData);
+  useEffect(() => {
+    getUser();
+  }, [id]);
 
   const handleForm = (e) => {
-    setForm({
+    setForm((prevForm) => ({
+      ...prevForm,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
 
   const handleEditClick = () => {
     setIsEditing(true);
   };
 
-  const handleSaveClick = () => {
-    setIsEditing(false);
+  const handleSaveClick = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('name', form.fullName);
+      formData.append('phone', form.phone);
+      
+      if (selectedImage) {
+        formData.append('profile_img', selectedImage);
+      }
+  
+      const response = await fetch(`http://localhost:5000/api/v1/users/${id}`, {
+        method: 'PUT',
+        body: formData,
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        setMessage("User updated successfully");
+        
+        // Update the user state with new information immediately
+        setUser((prevUser) => ({
+          ...prevUser,
+          name: form.fullName,
+          phone: form.phone,
+          profile_img: selectedImage ? URL.createObjectURL(selectedImage) : prevUser.profile_img,
+        }));
+        
+        setIsEditing(false);
+        setSelectedImage(null); // Clear the selected image after saving
+      } else {
+        setMessage("Error updating user");
+      }
+    } catch (error) {
+      console.error("Error updating user:", error);
+      setMessage("Error updating user");
+    }
   };
 
   const handleCancelClick = () => {
     setIsEditing(false);
-    setForm(initialFormData);
+    setForm({
+      fullName: user.name || '',
+      email: user.email || '',
+      phone: user.phone || '',
+    });
   };
 
   const handleImageChange = (event) => {
-     setSelectedImage(event.target.files[0])
-  }
-  
+    setSelectedImage(event.target.files[0]);
+  };
+
   return (
     <div className="mx-auto mt-10 bg-white">
       <div className="flex items-center justify-center mb-4">
-        {selectedImage ? (
+        {user?.profile_img ? (
           <img
-            src={URL.createObjectURL(selectedImage)}
-            alt="Selected"
+            src={user.profile_img}
+            alt="Profile"
             className="w-32 h-32 object-cover rounded-full border-2 border-gray-300"
           />
         ) : (
@@ -50,14 +121,17 @@ const MyProfile = () => {
         )}
       </div>
 
-      <div className="text-center">
-        <label className="block mb-2 text-gray-700 font-bold">Upload a New Photo</label>
-        <input
-          type="file"
-          onChange={handleImageChange}
-          className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-        />
-      </div>
+      {message && <p className="text-center text-green-500">{message}</p>}
+
+      {isEditing && (
+        <div className="text-center">
+          <input
+            type="file"
+            onChange={handleImageChange}
+            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+          />
+        </div>
+      )}
 
       <form className="mt-6">
         <div className="mb-4">
@@ -84,9 +158,9 @@ const MyProfile = () => {
             id="email"
             name="email"
             value={form.email}
-            disabled={true}
+            disabled
             onChange={handleForm}
-            className={`w-full p-2 border rounded bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+            className="w-full p-2 border rounded bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -104,8 +178,6 @@ const MyProfile = () => {
             className={`w-full p-2 border rounded ${isEditing ? 'bg-white' : 'bg-gray-100'} focus:outline-none focus:ring-2 focus:ring-blue-500`}
           />
         </div>
-
-        
 
         <div className="flex justify-between mt-6">
           {isEditing ? (

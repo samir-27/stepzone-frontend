@@ -24,7 +24,8 @@ const Login = () => {
     
             // console.log("Login response:", response);
             // console.log("Response data:", response.data); 
-    
+                localStorage.setItem("userId",response.data.userId)
+            // console.log("id stored",response.data.userId)
             // Correctly store the token
             if (response.data.authToken) {
                 localStorage.setItem("authToken", response.data.authToken);

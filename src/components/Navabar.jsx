@@ -18,7 +18,7 @@ const Navbar = () => {
         </Link>
     );
 
-    const handleClik = () => {
+    const handleClick = () => {
         setNavbar(!navbar);
     }
 
@@ -28,13 +28,15 @@ const Navbar = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("authToken");
-        navigate("/login")  
+        navigate("/login")
     };
-    
+
 
     const handleRegister = () => {
         navigate("/register")
     }
+
+    const id = localStorage.getItem("userId")
 
     const hamburgerButton = (
         <button
@@ -52,28 +54,26 @@ const Navbar = () => {
     const navigationLinks = (
         <ul className={`md:h-auto items-center justify-center md:flex md:bg-white bg-gray-200   ${navbar ? 'p-12 md:p-0 block' : 'hidden'}`}>
             <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
-                <Link to="/" onClick={handleClik}>Home</Link>
+                <Link to="/" onClick={handleClick}>Home</Link>
             </li>
             <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
-                <Link to="/products" onClick={handleClik}>Products</Link>
+                <Link to="/products" onClick={handleClick}>Products</Link>
             </li>
             <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
-                <Link to="/about" onClick={handleClik}>About Us</Link>
-            </li>
-            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
-                <Link to="/contact" onClick={handleClik}>Contact Us</Link>
+                <Link to="/contact" onClick={handleClick}>Contact Us</Link>
             </li>
             {
                 (localStorage.getItem("authToken")) ?
                     <li>
-                        <div className=' flex py-2 justify-center'>
+                        <div className='flex py-2 gap-5 justify-center'>
 
-                            <Link to="/cart" className='px-1' onClick={handleClik}>
+                            <Link to="/cart" className='px-1' onClick={handleClick}>
                                 <TiShoppingCart className='mx-auto' size={40} />
                             </Link>
-                            <Link to="/profile" className='px-1' onClick={handleClik}>
+                            <Link to={`/profile/${id}`} className='px-1' onClick={handleClick}>
                                 <CgProfile className='mx-auto' size={40} />
                             </Link>
+
                             <button className='p-1 px-3 border-2 border-rose-600 bg-rose-600 text-white rounded-md font-semibold hover:bg-rose-500' onClick={handleLogout}>Logout</button>
                         </div>
                     </li> :
