@@ -1,8 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdDelete, MdEdit } from "react-icons/md";
-import allProducts from '../utils/allproduct';
 
 const AllProducts = () => {
+
+    const [products, setProducts] = useState([]);
+
+    const getProduct = async () => {
+        let response = await fetch(`http://localhost:5000/api/v1/products`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        response = await response.json();
+        setProducts(response.data);
+    };
+
+    const handleDelete = async (id) => {
+        try {
+          const token = localStorage.getItem('authToken');
+          const response = await fetch(`http://localhost:5000/api/v1/products/${id}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+            },
+          });
+      
+          const data = await response.json();
+          if (response.ok) {
+            alert(data.message);
+            setProducts(products.filter((product) => product._id !== id));
+          } else {
+            alert(data.message || 'Failed to delete the product');
+          }
+        } catch (error) {
+          console.error('Error while deleting:', error);
+          alert('An error occurred while deleting the product');
+        }
+      };
+      
+
+    useEffect(() => {
+        getProduct();
+    }, []);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -46,22 +88,25 @@ const AllProducts = () => {
         setSubImages(newSubImages);
     };
 
+
+
     return (
         <div>
             <h2 className="text-2xl font-bold text-gray-800 mb-6">All Products</h2>
-            {allProducts.map((data, key) => (
+            {products.map((data, key) => (
                 <div key={key} className='flex items-center justify-between border-b py-4'>
                     <div className='flex items-center'>
                         <img
-                            src={data.path}
+                            src={data.image}
                             alt={data.title}
                             className="w-24 h-24 object-cover mr-4 rounded-md shadow-sm"
                         />
-                        <h3 className="text-lg font-semibold">{data.title}</h3>
+                        <h3 className="text-lg font-semibold">{data.name}</h3>
                     </div>
                     <div>
                         <button
                             className="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 transition duration-300 mx-2"
+                            onClick={() => handleDelete(data._id)}
                         >
                             <MdDelete />
                         </button>
