@@ -70,6 +70,11 @@ const AccordionComponent = () => {
     }));
   };
 
+  const handleClearFilters = () => {
+    setSelectedFilters({});
+    setSearchParams({});
+  };
+
   useEffect(() => {
     Object.keys(selectedFilters).forEach((key) => {
       if (selectedFilters[key]) {
@@ -127,7 +132,7 @@ const AccordionComponent = () => {
           </AccordionItem>
         ))}
       </Accordion>
-      <button className='bg-sky-900 p-2 rounded-md text-white font-semibold hover:bg-rose-600 w-full'>Apply Filters</button>
+      <button className='bg-sky-900 p-2 rounded-md text-white font-semibold hover:bg-rose-600 w-full' onClick={handleClearFilters}>Clear Filters</button>
     </>
   );
 };

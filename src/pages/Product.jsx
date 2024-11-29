@@ -128,7 +128,6 @@ const Product = () => {
                     </div>
                 </div>
             </div>
-
             <div>
                 <h1 className='font-bold text-4xl py-4'>Reviews</h1>
                 <button
