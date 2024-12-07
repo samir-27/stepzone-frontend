@@ -85,7 +85,7 @@ const AllUsers = () => {
                             <div className="ml-auto flex items-center">
                                 <button
                                     className="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 transition duration-300 mx-2"
-                                    onClick={() => handleDelete(data._id)} // Corrected to a function reference
+                                    onClick={() => handleDelete(data._id)}
                                 >
                                     <MdDelete />
                                 </button>
