@@ -113,6 +113,7 @@ const AllProducts = () => {
                         <button
                             className="bg-sky-500 text-white p-2 rounded-lg hover:bg-sky-600 transition duration-300 mx-2"
                             onClick={() => openEditModal(data)}
+                            
                         >
                             <MdEdit />
                         </button>

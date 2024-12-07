@@ -5,7 +5,7 @@ const Profile = () => {
   const { id } = useParams();
 
   return (
-    <div className='py-24 container mx-auto xl:px-40 lg:px-28 md:px-10 px-5'>
+    <div className='pt-24 container mx-auto xl:px-40 lg:px-28 md:px-10 px-5'>
       <div className="flex gap-5">
         <nav className='w-1/4'>
           <ul className='space-y-6'>
@@ -32,7 +32,7 @@ const Profile = () => {
           </ul>
         </nav>
 
-        <div className='w-3/4 p-8 bg-white shadow-lg rounded-lg h-132'>
+        <div className='w-3/4 p-8 bg-white shadow-lg rounded-lg h-144'>
           <Outlet />
         </div>
       </div>

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const ChangePassword = () => {
   const [formData, setFormData] = useState({
     oldPassword: '',
     newPassword1: '',
-    newPassword2: ''
+    newPassword2: '',
   });
-
+  const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const { id } = useParams();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,28 +19,59 @@ const ChangePassword = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    setError('');
+    setMessage('');
+
     if (formData.newPassword1 !== formData.newPassword2) {
       setError('New passwords do not match');
-    } else if (!formData.oldPassword || !formData.newPassword1 || !formData.newPassword2) {
-      setError('All fields are required');
-    } else {
-      setError('');
+      return;
+    }
 
-    //   console.log('Password changed successfully!');
+    if (!formData.oldPassword || !formData.newPassword1 || !formData.newPassword2) {
+      setError('All fields are required');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/v1/users/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          password: formData.newPassword1, // Backend expects "password"
+          oldPassword: formData.oldPassword, // Send old password for verification if required
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setMessage(result.message || 'Password updated successfully');
+        setFormData({
+          oldPassword: '',
+          newPassword1: '',
+          newPassword2: '',
+        });
+      } else {
+        setError(result.message || 'Error updating password');
+      }
+    } catch (err) {
+      console.error('Error:', err);
+      setError('An unexpected error occurred');
     }
   };
 
   return (
-    <div>
-      <form className="mt-6">
-        <div className="mb-4">
+    <div className="mt-6">
+      <form className="space-y-4">
+        <div>
           <label className="block text-gray-700 font-bold mb-2">
             Enter Old Password
           </label>
           <input
             type="password"
-            id="oldPassword"
             name="oldPassword"
             value={formData.oldPassword}
             onChange={handleChange}
@@ -46,13 +79,12 @@ const ChangePassword = () => {
           />
         </div>
 
-        <div className="mb-4">
+        <div>
           <label className="block text-gray-700 font-bold mb-2">
             Enter New Password
           </label>
           <input
             type="password"
-            id="newPassword1"
             name="newPassword1"
             value={formData.newPassword1}
             onChange={handleChange}
@@ -60,13 +92,12 @@ const ChangePassword = () => {
           />
         </div>
 
-        <div className="mb-4">
+        <div>
           <label className="block text-gray-700 font-bold mb-2">
             Retype New Password
           </label>
           <input
             type="password"
-            id="newPassword2"
             name="newPassword2"
             value={formData.newPassword2}
             onChange={handleChange}
@@ -74,7 +105,8 @@ const ChangePassword = () => {
           />
         </div>
 
-        {error && <p className="text-red-500 font-semibold mb-4">{error}</p>}
+        {error && <p className="text-red-500 font-semibold">{error}</p>}
+        {message && <p className="text-green-500 font-semibold">{message}</p>}
 
         <button
           type="button"

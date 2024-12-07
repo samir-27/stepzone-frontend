@@ -9,12 +9,14 @@ const MyProfile = () => {
     name: '',
     email: '',
     phone: '',
+    address: '',
     profile_img: '',
   });
   const [form, setForm] = useState({
     fullName: '',
     email: '',
     phone: '',
+    address: ''
   });
   const [message, setMessage] = useState('');
   const { id } = useParams();
@@ -31,6 +33,7 @@ const MyProfile = () => {
           fullName: userData.name || '',
           email: userData.email || '',
           phone: userData.phone || '',
+          address: userData.address || '',
         });
       } else {
         console.error("User data not found");
@@ -60,29 +63,31 @@ const MyProfile = () => {
       const formData = new FormData();
       formData.append('name', form.fullName);
       formData.append('phone', form.phone);
-      
+      formData.append('address', form.address);
+
       if (selectedImage) {
         formData.append('profile_img', selectedImage);
       }
-  
+
       const response = await fetch(`http://localhost:5000/api/v1/users/${id}`, {
         method: 'PUT',
         body: formData,
       });
-  
+
       const data = await response.json();
-  
+
       if (response.ok) {
         setMessage("User updated successfully");
-        
+
         // Update the user state with new information immediately
         setUser((prevUser) => ({
           ...prevUser,
           name: form.fullName,
           phone: form.phone,
+          address: form.address,
           profile_img: selectedImage ? URL.createObjectURL(selectedImage) : prevUser.profile_img,
         }));
-        
+
         setIsEditing(false);
         setSelectedImage(null); // Clear the selected image after saving
       } else {
@@ -100,6 +105,7 @@ const MyProfile = () => {
       fullName: user.name || '',
       email: user.email || '',
       phone: user.phone || '',
+      address: user.address || '',
     });
   };
 
@@ -178,6 +184,24 @@ const MyProfile = () => {
             className={`w-full p-2 border rounded ${isEditing ? 'bg-white' : 'bg-gray-100'} focus:outline-none focus:ring-2 focus:ring-blue-500`}
           />
         </div>
+
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="address">
+            Address
+          </label>
+          <textarea
+            id="address"
+            name="address"
+            value={form.address}
+            disabled={!isEditing}
+            onChange={handleForm}
+            rows="2"
+            cols="5"
+            className={`w-full p-2 border rounded ${isEditing ? 'bg-white' : 'bg-gray-100'} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+          ></textarea>
+        </div>
+
+
 
         <div className="flex justify-between mt-6">
           {isEditing ? (
