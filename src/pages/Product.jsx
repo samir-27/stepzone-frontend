@@ -17,7 +17,7 @@ const Product = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState('');
-
+    const [errorMessage, setErrorMessage] = useState("");
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
     };
@@ -66,17 +66,34 @@ const Product = () => {
             console.error("Failed to fetch reviews:", error);
         }
     };
+    console.log(reviews)
+
+    const UserID = localStorage.getItem("userId");
 
     const handleReviewSubmit = async (e) => {
         e.preventDefault();
+        setErrorMessage(""); // Clear previous errors
+
         try {
-            await axios.post(`http://localhost:5000/api/v1/products/${params.id}/reviews`, { stars: rating, description: reviewText });
+            await axios.post(`http://localhost:5000/api/v1/products/${params.id}/reviews`, {
+                stars: rating,
+                description: reviewText,
+                userId: UserID  // Include userId
+            });
+
             getReviews();
             toggleModal();
         } catch (error) {
             console.error("Failed to submit review:", error);
+
+            if (error.response && error.response.data) {
+                setErrorMessage(error.response.data.message); // Store backend error message
+            } else {
+                setErrorMessage("Something went wrong. Please try again.");
+            }
         }
     };
+
 
     useEffect(() => {
         getReviews();
@@ -143,17 +160,17 @@ const Product = () => {
                         {reviews.map((review) => (
                             <div
                                 key={review._id}
-                                className="flex items-start p-4 border-b bg-white shadow-lg rounded-lg"
+                                className="flex items-start p-4 border-b bg-white shadow-lg rounded-lg border"
                             >
                                 <img
-                                    src={review.user?.profilePic || 'https://via.placeholder.com/50'}
+                                    src={review.userId?.profile_img || 'https://via.placeholder.com/50'}
                                     alt="User profile"
                                     className="w-12 h-12 rounded-full object-cover mr-4"
                                 />
                                 <div className="flex-1">
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <h3 className="font-bold text-lg">{review.user?.name || 'Anonymous'}</h3>
+                                            <h3 className="font-bold text-lg">{review.userId?.name || 'Anonymous'}</h3>
                                             <StarRating rating={review.stars} />
                                         </div>
                                     </div>
@@ -168,6 +185,13 @@ const Product = () => {
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
                         <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
                             <h2 className="text-2xl font-semibold mb-4">Add a Review</h2>
+
+                            {errorMessage && ( // Show error message if it exists
+                                <div className="bg-red-100 text-red-600 p-2 rounded mb-4">
+                                    {errorMessage}
+                                </div>
+                            )}
+
                             <StarRatingInput rating={rating} setRating={setRating} />
                             <textarea
                                 className="w-full p-2 border border-gray-300 rounded mt-4"
@@ -176,6 +200,7 @@ const Product = () => {
                                 value={reviewText}
                                 onChange={(e) => setReviewText(e.target.value)}
                             ></textarea>
+
                             <div className="flex justify-end mt-4">
                                 <button
                                     onClick={toggleModal}
