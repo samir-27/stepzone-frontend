@@ -225,7 +225,7 @@ const MyProfile = () => {
             <button
               type="button"
               onClick={handleEditClick}
-              className="bg-slate-500 hover:bg-slate-400 text-white w-32 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 hover:bg-blue-400 text-white w-32 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Edit
             </button>

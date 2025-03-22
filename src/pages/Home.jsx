@@ -7,7 +7,7 @@ import HomeCarousel from '../components/HomeCarousel'
 import GenderGrid from '../components/GenderGrid'
 const Home = () => {
   return (
-    <div className='container mx-auto xl:px-40 lg:px-28 md:px-10 px-5'>
+    <div className='container mx-auto'>
       <Hero />
        <TopProducts />
        <Category />

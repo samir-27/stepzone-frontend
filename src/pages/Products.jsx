@@ -24,7 +24,7 @@ const Products = () => {
     }, [searchParams]);
   
     return (
-      <div className='py-24 container mx-auto xl:px-40 lg:px-28 md:px-10 px-5'>
+      <div className='py-24 container mx-auto'>
         <div className="lg:flex md:flex gap-10 sm:inline">
           <div className="lg:w-2/7 md:w-1/4 w-full mb-5">
             <div className='lg:fixed'>
@@ -34,7 +34,7 @@ const Products = () => {
             </div>
           </div>
           <div className="col-span-3 lg:w-5/7 md:w-3/4 sm:w-full">
-            <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 grid-cols-2 gap-4">
+            <div className="grid xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 grid-cols-2 gap-4">
               {products.map((data, index) => (
                 <ProductCard key={index} data={data} />
               ))}

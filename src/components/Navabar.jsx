@@ -14,7 +14,7 @@ const Navbar = () => {
 
     const logo = (
         <Link to="/">
-            <h2 className="text-2xl text-rose-600 font-bold">StepZone</h2>
+            <h2 className="text-2xl text-blue-600 font-bold">StepZone</h2>
         </Link>
     );
 
@@ -53,13 +53,13 @@ const Navbar = () => {
 
     const navigationLinks = (
         <ul className={`md:h-auto items-center justify-center md:flex md:bg-white bg-gray-200   ${navbar ? 'p-12 md:p-0 block' : 'hidden'}`}>
-            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
+            <li className="text-xl text-gray-900 md:hover:text-blue-500 hover:text-blue-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
                 <Link to="/" onClick={handleClick}>Home</Link>
             </li>
-            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
+            <li className="text-xl text-gray-900 md:hover:text-blue-500 hover:text-blue-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
                 <Link to="/products" onClick={handleClick}>Products</Link>
             </li>
-            <li className="text-xl text-gray-900 md:hover:text-rose-500 hover:text-rose-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
+            <li className="text-xl text-gray-900 md:hover:text-blue-500 hover:text-blue-500 py-2 xl:px-6 lg:px-5 md:px-3 sm:px-2 text-center">
                 <Link to="/contact" onClick={handleClick}>Contact Us</Link>
             </li>
             {
@@ -74,12 +74,12 @@ const Navbar = () => {
                                 <CgProfile className='mx-auto' size={40} />
                             </Link>
 
-                            <button className='p-1 px-3 border-2 border-rose-600 bg-rose-600 text-white rounded-md font-semibold hover:bg-rose-500' onClick={handleLogout}>Logout</button>
+                            <button className='p-1 px-3 border-2 border-blue-600 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-500' onClick={handleLogout}>Logout</button>
                         </div>
                     </li> :
                     <li>
-                        <button className='p-1 px-3 border-2 border-rose-600 bg-rose-600 text-white rounded-md font-semibold hover:bg-rose-500' onClick={handleLogin}>login</button>
-                        <button className='p-1 px-3 border-2 border-rose-600 text-rose-600 rounded-md font-semibold hover:bg-rose-600 hover:text-white mx-4' onClick={handleRegister}>Register</button>
+                        <button className='p-1 px-3 border-2 border-blue-600 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-500' onClick={handleLogin}>login</button>
+                        <button className='p-1 px-3 border-2 border-blue-600 text-blue-600 rounded-md font-semibold hover:bg-blue-600 hover:text-white mx-4' onClick={handleRegister}>Register</button>
                     </li>
             }
 
@@ -97,7 +97,7 @@ const Navbar = () => {
     return (
         <div className='shadow-md h-20 z-50 fixed top-0 w-screen bg-white '>
             <nav className="w-full h-20 ">
-                <div className="sm:container h-full mx-auto xl:px-40  md:px-0">
+                <div className="sm:container h-full mx-auto">
                     <div className="justify-between md:items-center md:flex h-full">
                         <div className="flex items-center justify-between py-3 md:py-5 md:block px-5">
                             {logo}

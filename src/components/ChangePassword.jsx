@@ -111,7 +111,7 @@ const ChangePassword = () => {
         <button
           type="button"
           onClick={handleSubmit}
-          className="bg-slate-500 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
           Set Password
         </button>

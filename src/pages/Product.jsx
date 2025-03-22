@@ -100,7 +100,7 @@ const Product = () => {
     }, [product]);
 
     return (
-        <div className="mt-24 container mx-auto xl:px-40 lg:px-28 md:px-10 px-5">
+        <div className="mt-24 container mx-auto  px-5">
             <div className="xl:flex lg:flex md:flex gap-6">
                 <div className="flex gap-6 grid-cols-6 xl:w-3/5 lg:w-3/5 md:w-3/5 w-full justify-center">
                     <div className="flex flex-col justify-between">
@@ -130,7 +130,7 @@ const Product = () => {
                     <h1 className='text-4xl font-bold py-2'>{product?.name}</h1>
                     <p>{product?.description}</p>
                     <br />
-                    <h1 className='text-3xl font-semibold text-rose-500'>Price: {product?.price}$</h1>
+                    <h1 className='text-3xl font-semibold text-blue-500'>Price: {product?.price}$</h1>
                     <p className='text-gray-500 text-xl'>(Inclusive of all taxes)</p>
                     <h2 className='py-5 text-gray-800 text-xl'>Select Size</h2>
                     <div className='grid grid-cols-3 gap-2'>
@@ -140,8 +140,8 @@ const Product = () => {
                     </div>
 
                     <div className='grid grid-cols-2 gap-3'>
-                        <button className='p-3 bg-sky-900 rounded-md text-white text-xl font-semibold mt-5 w-full hover:bg-rose-700' onClick={handleCartClick}>Add To Cart</button>
-                        <button className='p-3 bg-gray-200 rounded-md text-gray-800 text-xl font-semibold mt-5 w-full hover:bg-rose-700 hover:text-white'>Add To Wishlist</button>
+                        <button className='p-3 bg-sky-900 rounded-md text-white text-xl font-semibold mt-5 w-full hover:bg-blue-700' onClick={handleCartClick}>Add To Cart</button>
+                        <button className='p-3 bg-gray-200 rounded-md text-gray-800 text-xl font-semibold mt-5 w-full hover:bg-blue-700 hover:text-white'>Add To Wishlist</button>
                     </div>
                 </div>
             </div>
@@ -149,7 +149,7 @@ const Product = () => {
                 <h1 className='font-bold text-4xl py-4'>Reviews</h1>
                 <button
                     onClick={toggleModal}
-                    className='p-2 rounded-md bg-rose-500 text-white font-semibold my-2'
+                    className='p-2 rounded-md bg-blue-500 text-white font-semibold my-2'
                 >
                     Add Review
                 </button>
@@ -210,7 +210,7 @@ const Product = () => {
                                 </button>
                                 <button
                                     onClick={handleReviewSubmit}
-                                    className="px-4 py-2 bg-rose-500 text-white rounded"
+                                    className="px-4 py-2 bg-blue-500 text-white rounded"
                                 >
                                     Submit Review
                                 </button>

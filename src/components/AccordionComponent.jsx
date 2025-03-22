@@ -92,7 +92,7 @@ const AccordionComponent = () => {
       className="mb-2"
       buttonProps={{
         className: () =>
-          `flex w-full p-4 text-left bg-slate-100 hover:bg-slate-200 text-xl font-bold rounded-md`,
+          `flex w-full p-4 text-left bg-blue-100 hover:bg-blue-200 text-xl font-bold rounded-md`,
       }}
       contentProps={{
         className: "transition-height duration-200 ease-out",
@@ -132,7 +132,7 @@ const AccordionComponent = () => {
           </AccordionItem>
         ))}
       </Accordion>
-      <button className='bg-sky-900 p-2 rounded-md text-white font-semibold hover:bg-rose-600 w-full' onClick={handleClearFilters}>Clear Filters</button>
+      <button className='bg-sky-900 p-2 rounded-md text-white font-semibold hover:bg-blue-600 w-full' onClick={handleClearFilters}>Clear Filters</button>
     </>
   );
 };
