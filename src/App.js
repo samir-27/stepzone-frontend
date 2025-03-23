@@ -65,9 +65,9 @@ const App = () => {
         </Routes>
       </main>
 
-      {location.pathname !== "/login" &&
+      {/* {location.pathname !== "/login" &&
         location.pathname !== "/register" &&
-        location.pathname !== "/admin" && <Footer />}
+        location.pathname !== "/admin" && <Footer />} */}
     </div>
   );
 };

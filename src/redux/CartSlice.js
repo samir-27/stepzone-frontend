@@ -18,6 +18,7 @@ const CartSlice = createSlice({
           id: newItem.id,
           name: newItem.name,
           path: newItem.path,
+          size: newItem.size,
           price: newItem.price,
           quantity: 1,
           totalPrice: parseFloat(newItem.price),

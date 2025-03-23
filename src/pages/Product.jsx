@@ -18,6 +18,8 @@ const Product = () => {
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState('');
     const [errorMessage, setErrorMessage] = useState("");
+    const [selectedSize, setSelectedSize] = useState(""); // State to track selected size
+
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
     };
@@ -48,15 +50,27 @@ const Product = () => {
         }
     }, [product]);
 
-    const handleCartClick = () => {
-        dispatch(addItemToCart({
-            id: product._id,
-            name: product.name,
-            path: product.image,
-            price: product.price,
-        }));
-        navigate("/cart");
-    };
+// Handle size selection
+const handleSizeChange = (size) => {
+    setSelectedSize(size); // Update selected size
+};
+
+// Modify the handleCartClick to include the selected size
+const handleCartClick = () => {
+    if (!selectedSize) {
+        alert("Please select a size!");
+        return;
+    }
+
+    dispatch(addItemToCart({
+        id: product._id,
+        name: product.name,
+        path: product.image,
+        price: product.price,
+        size: selectedSize, // Include the selected size
+    }));
+    navigate("/cart");
+};
 
     const getReviews = async () => {
         try {
@@ -66,7 +80,6 @@ const Product = () => {
             console.error("Failed to fetch reviews:", error);
         }
     };
-    console.log(reviews)
 
     const UserID = localStorage.getItem("userId");
 
@@ -93,7 +106,6 @@ const Product = () => {
             }
         }
     };
-
 
     useEffect(() => {
         getReviews();
@@ -133,18 +145,36 @@ const Product = () => {
                     <h1 className='text-3xl font-semibold text-blue-500'>Price: {product?.price}$</h1>
                     <p className='text-gray-500 text-xl'>(Inclusive of all taxes)</p>
                     <h2 className='py-5 text-gray-800 text-xl'>Select Size</h2>
-                    <div className='grid grid-cols-3 gap-2'>
-                        {["XS", "S", "M", "L", "XL", "2XL"].map(size => (
-                            <button key={size} className='p-2 border-2 border-gray-500 rounded-md hover:bg-gray-500 hover:text-white'>{size}</button>
-                        ))}
-                    </div>
+<div className='grid grid-cols-3 gap-2'>
+    {product?.size.map(size => (
+        <label key={size} className='p-2 border-2 border-gray-500 rounded-md hover:bg-gray-500 hover:text-white'>
+            <input 
+                type="radio" 
+                name="size" 
+                value={size} 
+                onChange={() => handleSizeChange(size)} 
+                className="mr-2" 
+            />
+            {size}
+        </label>
+    ))}
+</div>
+
 
                     <div className='grid grid-cols-2 gap-3'>
-                        <button className='p-3 bg-sky-900 rounded-md text-white text-xl font-semibold mt-5 w-full hover:bg-blue-700' onClick={handleCartClick}>Add To Cart</button>
-                        <button className='p-3 bg-gray-200 rounded-md text-gray-800 text-xl font-semibold mt-5 w-full hover:bg-blue-700 hover:text-white'>Add To Wishlist</button>
+                        <button
+                            className='p-3 bg-sky-900 rounded-md text-white text-xl font-semibold mt-5 w-full hover:bg-blue-700'
+                            onClick={handleCartClick}
+                        >
+                            Add To Cart
+                        </button>
+                        <button className='p-3 bg-gray-200 rounded-md text-gray-800 text-xl font-semibold mt-5 w-full hover:bg-blue-700 hover:text-white'>
+                            Add To Wishlist
+                        </button>
                     </div>
                 </div>
             </div>
+
             <div>
                 <h1 className='font-bold text-4xl py-4'>Reviews</h1>
                 <button

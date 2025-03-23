@@ -28,7 +28,7 @@ const Products = () => {
         <div className="lg:flex md:flex gap-10 sm:inline">
           <div className="lg:w-2/7 md:w-1/4 w-full mb-5">
             <div className='lg:fixed'>
-              <div className='lg:fixed xl:w-64 md:fixed lg:w-44 md:w-44 sm'>
+              <div className='lg:fixed xl:w-80 md:fixed lg:w-60 md:w-44 sm'>
                 <AccordionComponent />
               </div>
             </div>

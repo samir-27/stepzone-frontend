@@ -31,12 +31,6 @@ const ProductCard = ({ data }) => {
         </div>
       </div>
 
-      {/* CTA Button */}
-      <div className="absolute bottom-0 left-0 w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <button className="w-full bg-blue-500 text-white py-2 text-sm font-semibold rounded-b-2xl hover:bg-blue-600 transition-all duration-300 ease-in-out group-hover:scale-105">
-          View Details
-        </button>
-      </div>
     </div>
   );
 };
